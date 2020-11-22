@@ -32,7 +32,7 @@ public class PokemonService {
 	public List<Pokemon> getAllPokemons(Integer pageNo, Integer pageSize){
 		List<Pokemon> pokemons = new ArrayList<Pokemon>();
 		if(pageSize>0) {
-			Pageable paging = PageRequest.of(pageNo, pageSize,Sort.by("pokemonName").ascending());
+			Pageable paging = PageRequest.of(pageNo, pageSize,Sort.by("pokemonId").ascending());
 			pokemonRepository.findAll(paging).forEach(pokemons::add);	
 		}else {
 			pokemonRepository.findAll().forEach(pokemons::add);
