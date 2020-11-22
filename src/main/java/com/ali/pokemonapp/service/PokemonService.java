@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.ali.pokemonapp.model.Pokemon;
@@ -26,9 +29,15 @@ public class PokemonService {
 	 * Service method to fetch all pokemons from a repository
 	 * @return List<Pokemon>
 	 */
-	public List<Pokemon> getAllPokemons(){
+	public List<Pokemon> getAllPokemons(Integer pageNo, Integer pageSize){
 		List<Pokemon> pokemons = new ArrayList<Pokemon>();
-		pokemonRepository.findAll().forEach(pokemons::add);
+		if(pageSize>0) {
+			Pageable paging = PageRequest.of(pageNo, pageSize,Sort.by("pokemonName").ascending());
+			pokemonRepository.findAll(paging).forEach(pokemons::add);	
+		}else {
+			pokemonRepository.findAll().forEach(pokemons::add);
+		}
+		
 		return pokemons;
 	}
 	
@@ -48,6 +57,6 @@ public class PokemonService {
 	 * @return List<Pokemon>
 	 */
 	public List<Pokemon> getPokemonByName(String name){
-		return pokemonRepository.findByPokemonNameStartsWith(name);
+		return pokemonRepository.findByPokemonNameContaining(name);
 	}
 }

@@ -28,9 +28,9 @@ public class PokemonController {
 	private PokemonService pokemonService;
 	
 	@GetMapping("/pokemons")
-	public List<Pokemon> getAllPokemon() {
-		
-		return pokemonService.getAllPokemons();
+	public List<Pokemon> getAllPokemon(@RequestParam Map<String, String> urlParam) {
+		return pokemonService.getAllPokemons(Integer.valueOf(urlParam.getOrDefault("pageNo", "0")),
+				Integer.valueOf(urlParam.getOrDefault("pageSize","0")));
 	}
 	
 	@GetMapping("/pokemons/search")
