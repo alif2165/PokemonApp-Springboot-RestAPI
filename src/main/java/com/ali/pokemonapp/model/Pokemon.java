@@ -43,12 +43,14 @@ public class Pokemon {
 	@Column(name="is_default")
 	private Integer isDefault;
 
+	@Column(name="img")
+	private String img;
 	
 	@Override
 	public String toString() {
 		return "Pokemon [pokemonId=" + pokemonId + ", pokemonName=" + pokemonName + ", height=" + height + ", weight="
 				+ weight + ", baseExperience=" + baseExperience + ", orders=" + orders + ", isDefault=" + isDefault
-				+ "]";
+				+ ", img=" + img + "]";
 	}
 
 	public Integer getPokemonId() {
@@ -105,6 +107,14 @@ public class Pokemon {
 
 	public void setIsDefault(Integer isDefault) {
 		this.isDefault = isDefault;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 }
